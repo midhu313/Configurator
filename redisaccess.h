@@ -8,11 +8,6 @@
 #include <hiredis/async.h>
 #include <hiredis/adapters/libevent.h>
 
-//struct Config_Params_S{
-//    char app_name[40];
-//    char
-//};
-
 
 class RedisAccess : public QObject
 {

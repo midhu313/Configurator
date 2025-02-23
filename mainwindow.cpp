@@ -136,8 +136,12 @@ void MainWindow::loadApplicationConfigManagementUI(QString cfgFileName){
         rowLayout->addWidget(edit2);
         rowLayout->addWidget(updateButton);
         connect(updateButton,&QPushButton::clicked,[=](){
-           qDebug()<<QString("Row Button Clicked. '%1'.'%2'").arg(edit1->text()).arg(edit2->text());
-           redis->publish("testchannel",QString("%1.%2").arg(edit1->text()).arg(edit2->text()));
+           Config_Update_Params_S cfg_param;
+           memset(&cfg_param,0,sizeof(Config_Update_Params_S));
+           strncpy(cfg_param.config_file_name,filePath.toUtf8().constData(),filePath.toUtf8().size());
+           strncpy(cfg_param.param_name,edit1->text().toUtf8().constData(),edit1->text().size());
+           strncpy(cfg_param.value,edit2->text().toUtf8().constData(),edit2->text().size());
+           redis->publish("cfg_update_channel",&cfg_param,sizeof(Config_Update_Params_S));
         });
         containerLayout->addWidget(rowWidget);
     }

@@ -16,6 +16,12 @@
 #include <QDebug>
 #include "redisaccess.h"
 
+typedef struct {
+    char config_file_name[80];
+    char param_name[40];
+    char value[40];
+}Config_Update_Params_S;
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
